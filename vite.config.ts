@@ -3,15 +3,18 @@ import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
 
-// https://vite.dev/config/
 export default defineConfig({
   base: './',
   plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        scaffolding: path.resolve(__dirname, 'scaffolding.html'),
+      },
     },
   },
+  resolve: { alias: { '@': path.resolve(__dirname, './src') } },
   server: {
     host: true,
     port: 5173,
